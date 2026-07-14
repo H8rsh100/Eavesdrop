@@ -1,5 +1,21 @@
 import re
 import socket
+import os
+import sys
+
+def is_admin() -> bool:
+    """
+    Checks if the current process has administrative/root privileges.
+    """
+    try:
+        if sys.platform.startswith("win"):
+            import ctypes
+            return ctypes.windll.shell32.IsUserAnAdmin() != 0
+        else:
+            return os.geteuid() == 0
+    except Exception:
+        return False
+
 
 # A curated list of the top 100 most common ports for quick scans
 COMMON_PORTS = [

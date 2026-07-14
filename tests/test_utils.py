@@ -1,7 +1,7 @@
 import pytest
 import socket
 from unittest.mock import patch
-from eavesdrop.utils import validate_ip_or_hostname, parse_ports, COMMON_PORTS
+from eavesdrop.utils import validate_ip_or_hostname, parse_ports, COMMON_PORTS, is_admin
 
 def test_validate_ip_valid():
     assert validate_ip_or_hostname("127.0.0.1") == "127.0.0.1"
@@ -54,3 +54,8 @@ def test_parse_ports_errors():
         parse_ports("65536") # out of bounds
     with pytest.raises(ValueError):
         parse_ports("22, -80")
+
+def test_is_admin():
+    res = is_admin()
+    assert isinstance(res, bool)
+
